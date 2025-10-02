@@ -1,0 +1,22 @@
+{
+  "name": "crypto-vault-heist-math",
+  "version": "1.0.0",
+  "description": "Math SDK for Crypto Vault Heist slot game",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "node test/test.js"
+  },
+  "keywords": [
+    "slot",
+    "rgs",
+    "stake-engine",
+    "math"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
