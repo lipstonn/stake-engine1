@@ -64,10 +64,18 @@
       gameState.set('IDLE');
       isSpinning.set(false);
     } catch (error: any) {
+      console.error('=== FULL ERROR DETAILS ===');
+      console.error('Error object:', error);
+      console.error('Error message:', error.message);
+      console.error('Error code:', error.code);
+      console.error('Error response:', error.response);
+      console.error('Error data:', error.data);
+      console.error('Error stack:', error.stack);
+      console.error('Error JSON:', JSON.stringify(error, null, 2));
+      
       errorMessage = getErrorMessage(error);
       gameState.set('IDLE');
       isSpinning.set(false);
-      console.error('Spin error:', error);
     }
   }
 
