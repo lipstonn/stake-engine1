@@ -1,4 +1,5 @@
 <script lang="ts">
+  import '../lib/stores/balance';  // Balance event listener'ı aktive eder
   import { onMount } from 'svelte';
   import { rgsClient } from '../rgs/client';
   import { gameState, currentBoard, currentWin, isSpinning, isBonusMode } from '../stores/gameState';
@@ -12,6 +13,7 @@
   onMount(async () => {
     try {
       const authResponse = await rgsClient.authenticate();
+      
       balance.set(fromApiAmount(authResponse.balance));
       currency.set(authResponse.currency);
 
@@ -47,6 +49,7 @@
       gameState.set('REVEALING');
       const events = response.round.state;
       const revealEvent = events.find(e => e.type === 'reveal');
+      
       if (revealEvent && revealEvent.board) {
         currentBoard.set(revealEvent.board);
       }
