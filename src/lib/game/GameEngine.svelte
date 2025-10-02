@@ -1,5 +1,5 @@
 <script lang="ts">
-  import '../lib/stores/balance';  // Balance event listener'ı aktive eder
+  import '../stores/balance';  // Balance event listener'ı aktive eder
   import { onMount } from 'svelte';
   import { rgsClient } from '../rgs/client';
   import { gameState, currentBoard, currentWin, isSpinning, isBonusMode } from '../stores/gameState';
