@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 export const balance = writable<number>(0);
 export const currency = writable<string>('USD');
 export const currentBet = writable<number>(1);
-export const betLevels = writable<number[]>([0.1, 0.5, 1, 2, 5, 10, 20, 50, 100]);
+export const betLevels = writable<number[]>([0.11, 0.5, 1, 2, 5, 10, 20, 50, 100]);
 export const isAuthenticated = writable<boolean>(false);
 
 window.addEventListener('balanceUpdate', (event: Event) => {
