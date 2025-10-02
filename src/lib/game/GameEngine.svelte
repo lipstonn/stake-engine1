@@ -33,6 +33,9 @@
   export async function spin(betAmount: number): Promise<void> {
     if ($gameState !== 'IDLE') return;
 
+    // Round to nearest 10000 (0.01 increments) - RGS requirement
+    betAmount = Math.round(betAmount / 10000) * 10000;
+
     try {
       gameState.set('BETTING');
       isSpinning.set(true);
@@ -42,14 +45,11 @@
       const response: PlayResponse = await rgsClient.play(betAmount, mode);
 
       gameState.set('SPINNING');
-
       await new Promise(resolve => setTimeout(resolve, 2000));
 
       gameState.set('REVEALING');
-
       const events = response.round.state;
       const revealEvent = events.find(e => e.type === 'reveal');
-
       if (revealEvent && revealEvent.board) {
         currentBoard.set(revealEvent.board);
       }
@@ -64,10 +64,8 @@
       }
 
       await rgsClient.endRound();
-
       gameState.set('IDLE');
       isSpinning.set(false);
-
     } catch (error: any) {
       errorMessage = getErrorMessage(error);
       gameState.set('IDLE');
