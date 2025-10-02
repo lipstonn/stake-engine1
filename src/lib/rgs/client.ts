@@ -1,6 +1,5 @@
 import { RGSClient as StakeRGSClient } from 'stake-engine';
 import type { AuthResponse, PlayRequest, PlayResponse, RGSError } from './types';
-import { toApiAmount } from './helpers';
 
 class RGSClientWrapper {
   private client: any;
@@ -46,7 +45,7 @@ class RGSClientWrapper {
 
     try {
       const response = await this.client.Play({
-        amount: toApiAmount(amount),
+        amount: amount,  // Zaten API formatında geliyor, tekrar çevirme
         mode
       });
       return response;
@@ -67,7 +66,6 @@ class RGSClientWrapper {
 
   private handleError(error: any): void {
     const rgsError = error as RGSError;
-
     switch (rgsError.code) {
       case 'ERR_IPB':
         console.error('Insufficient balance');
