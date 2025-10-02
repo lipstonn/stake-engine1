@@ -2,8 +2,9 @@
   import BetSelector from './BetSelector.svelte';
   import { currentBet, balance } from '../stores/balance';
   import { isSpinning } from '../stores/gameState';
+  import { toApiAmount } from '../rgs/helpers';
 
-  export let onSpin: () => void;
+  export let onSpin: (betAmount: number) => void;
 
   let autoPlayCount = 0;
   let isAutoPlay = false;
@@ -14,7 +15,10 @@
       alert('Insufficient balance');
       return;
     }
-    onSpin();
+
+    // Convert bet to API format (multiply by 1000000)
+    const apiAmount = toApiAmount($currentBet);
+    onSpin(apiAmount);
 
     if (isAutoPlay && autoPlayCount > 0) {
       autoPlayCount--;
@@ -38,7 +42,7 @@
 
 <div class="control-panel">
   <BetSelector />
-
+  
   <button
     class="spin-button"
     class:spinning={$isSpinning}
