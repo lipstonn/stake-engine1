@@ -2,7 +2,6 @@
   import BetSelector from './BetSelector.svelte';
   import { currentBet, balance } from '../stores/balance';
   import { isSpinning } from '../stores/gameState';
-  import { toApiAmount } from '../rgs/helpers';
 
   export let onSpin: (betAmount: number) => void;
 
@@ -16,18 +15,12 @@
       return;
     }
 
-    // Convert bet to API format (multiply by 1000000)
-    const apiAmount = toApiAmount($currentBet);
-    
-    // DEBUG LOGS
+    // Direkt currentBet'i gönder - backend zaten API formatında bekliyor
     console.log('=== BET DEBUG ===');
     console.log('Current bet (display):', $currentBet);
-    console.log('API amount (sending):', apiAmount);
-    console.log('Min bet required:', 100000);
-    console.log('Max bet required:', 100000000);
-    console.log('Is valid?', apiAmount >= 100000 && apiAmount <= 100000000);
+    console.log('Sending to backend:', $currentBet);
     
-    onSpin(apiAmount);
+    onSpin($currentBet);
 
     if (isAutoPlay && autoPlayCount > 0) {
       autoPlayCount--;
