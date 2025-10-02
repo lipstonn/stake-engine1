@@ -1,7 +1,5 @@
 import { RGSClient as StakeRGSClient } from 'stake-engine';
 import type { AuthResponse, PlayRequest, PlayResponse, RGSError } from './types';
-import { fromApiAmount } from './helpers';
-import { balance, currency } from '../stores/balance';
 
 class RGSClientWrapper {
   private client: any;
@@ -22,10 +20,6 @@ class RGSClientWrapper {
   private handleBalanceUpdate(event: Event): void {
     const customEvent = event as CustomEvent<{ amount: number; currency: string }>;
     console.log('Balance updated:', customEvent.detail);
-    
-    // API formatından normal formata çevir
-    balance.set(fromApiAmount(customEvent.detail.amount));
-    currency.set(customEvent.detail.currency);
   }
 
   private handleRoundActive(event: Event): void {
