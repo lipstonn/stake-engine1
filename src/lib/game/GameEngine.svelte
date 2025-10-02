@@ -33,9 +33,6 @@
   export async function spin(betAmount: number): Promise<void> {
     if ($gameState !== 'IDLE') return;
 
-    // Round to nearest 10000 (0.01 increments) - RGS requirement
-    betAmount = Math.round(betAmount / 10000) * 10000;
-
     try {
       gameState.set('BETTING');
       isSpinning.set(true);
