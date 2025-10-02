@@ -15,12 +15,14 @@
       return;
     }
 
-    // Direkt currentBet'i gönder - backend zaten API formatında bekliyor
+    // Backend API formatında bekliyor (0.1 → 100000)
+    const apiAmount = $currentBet * 1000000;
+    
     console.log('=== BET DEBUG ===');
     console.log('Current bet (display):', $currentBet);
-    console.log('Sending to backend:', $currentBet);
+    console.log('Sending to backend:', apiAmount);
     
-    onSpin($currentBet);
+    onSpin(apiAmount);
 
     if (isAutoPlay && autoPlayCount > 0) {
       autoPlayCount--;
